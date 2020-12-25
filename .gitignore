@@ -1,9 +1,9 @@
 .envrc
 node_modules
 truffle-config.js
+contract-addresses.json
 
 #Buidler files
 cache
 artifacts
 build
-contract-addresses.json
