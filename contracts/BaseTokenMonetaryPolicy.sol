@@ -325,7 +325,7 @@ contract BaseTokenMonetaryPolicy is OwnableUpgradeSafe {
         deviationThreshold = 0;
         rebaseLag = 1;
         minRebaseTimeIntervalSec = 1 days;
-        rebaseWindowOffsetSec = 79200;  // 10PM UTC
+        rebaseWindowOffsetSec = 7200;  // 2AM UTC
         rebaseWindowLengthSec = 60 minutes;
         lastRebaseTimestampSec = 0;
         epoch = 0;

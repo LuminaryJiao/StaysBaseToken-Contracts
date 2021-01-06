@@ -5,7 +5,7 @@ const { getSavedContractAddresses, saveContractAddress } = require('./utils')
 async function main() {
     await bre.run('compile')
 
-    const ERC20UpgradeSafe = await ethers.getContractFactory('LPToken')
+    const ERC20UpgradeSafe = await ethers.getContractFactory('ERC20UpgradeSafe')
     const lpToken = await upgrades.deployProxy(ERC20UpgradeSafe, [])
     await lpToken.deployed()
     console.log('LP token deployed to:', lpToken.address)

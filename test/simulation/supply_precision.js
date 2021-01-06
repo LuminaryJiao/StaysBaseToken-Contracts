@@ -32,7 +32,7 @@ async function exec() {
 
     const monetaryPolicyAddress = await deployer.getAddress();
     console.log('Setting monetaryPolicyAddress', monetaryPolicyAddress);
-    await awaitTx(baseToken.setMonetaryPolicy(monetaryPolicyAddress))
+    await awaitTx(baseToken.setMonetaryPolicy(monetaryPolicyAddress));
     console.log('baseToken configure done');
 
     let i = 0

@@ -1,6 +1,5 @@
 .envrc
 node_modules
-truffle-config.js
 contract-addresses.json
 
 #Buidler files
