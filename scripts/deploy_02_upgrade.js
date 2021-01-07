@@ -11,15 +11,15 @@ async function main() {
     const orchestrator = await ethers.getContractAt('BaseTokenOrchestrator', contracts.baseTokenOrchestrator)
     const cascade = await ethers.getContractAt('Cascade', contracts.cascade)
 
-    const BaseToken = await ethers.getContractFactory('BaseToken')
-    const baseToken = await upgrades.upgradeProxy(contracts.baseToken, BaseToken)
-    await baseToken.deployed()
+    const SBSToken = await ethers.getContractFactory('BaseToken')
+    const sbsToken = await upgrades.upgradeProxy(contracts.sbsToken, SBSToken)
+    await sbsToken.deployed()
 
-    await (await monetaryPolicy.setBASEToken(baseToken.address)).wait()
-    await (await cascade.setBASEToken(baseToken.address)).wait()
+    await (await monetaryPolicy.setBASEToken(sbsToken.address)).wait()
+    await (await cascade.setBASEToken(sbsToken.address)).wait()
 
-    console.log('BaseToken re-deployed to:', baseToken.address)
-    saveContractAddress(bre.network.name, 'baseToken', baseToken.address)
+    console.log('SBSToken re-deployed to:', sbsToken.address)
+    saveContractAddress(bre.network.name, 'sbsToken', sbsToken.address)
 }
 
 main()

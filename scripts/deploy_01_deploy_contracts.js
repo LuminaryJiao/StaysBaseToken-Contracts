@@ -5,14 +5,14 @@ const { getSavedContractAddresses, saveContractAddress } = require('./utils')
 async function main() {
     await bre.run('compile')
 
-    const BaseToken = await ethers.getContractFactory('BaseToken')
-    const baseToken = await upgrades.deployProxy(BaseToken, [])
-    await baseToken.deployed()
-    console.log('BaseToken deployed to:', baseToken.address)
-    saveContractAddress(bre.network.name, 'baseToken', baseToken.address)
+    const SBSToken = await ethers.getContractFactory('BaseToken')
+    const sbsToken = await upgrades.deployProxy(SBSToken, [])
+    await sbsToken.deployed()
+    console.log('SBSToken deployed to:', sbsToken.address)
+    saveContractAddress(bre.network.name, 'sbsToken', sbsToken.address)
 
     const BaseTokenMonetaryPolicy = await ethers.getContractFactory('BaseTokenMonetaryPolicy')
-    const baseTokenMonetaryPolicy = await upgrades.deployProxy(BaseTokenMonetaryPolicy, [baseToken.address])
+    const baseTokenMonetaryPolicy = await upgrades.deployProxy(BaseTokenMonetaryPolicy, [sbsToken.address])
     await baseTokenMonetaryPolicy.deployed()
     console.log('BaseTokenMonetaryPolicy deployed to:', baseTokenMonetaryPolicy.address)
     saveContractAddress(bre.network.name, 'baseTokenMonetaryPolicy', baseTokenMonetaryPolicy.address)
@@ -29,8 +29,8 @@ async function main() {
     console.log('Cascade deployed to:', cascade.address)
     saveContractAddress(bre.network.name, 'cascade', cascade.address)
 
-    await (await baseToken.setMonetaryPolicy(baseTokenMonetaryPolicy.address)).wait()
-    console.log('BaseToken.setMonetaryPolicy(', baseTokenMonetaryPolicy.address, ') succeeded')
+    await (await sbsToken.setMonetaryPolicy(baseTokenMonetaryPolicy.address)).wait()
+    console.log('sbsToken.setMonetaryPolicy(', baseTokenMonetaryPolicy.address, ') succeeded')
     await (await baseTokenMonetaryPolicy.setOrchestrator(baseTokenOrchestrator.address)).wait()
     console.log('BaseTokenMonetaryPolicy.setOrchestrator(', baseTokenOrchestrator.address, ') succeeded')
 
@@ -42,8 +42,8 @@ async function main() {
     console.log('BaseTokenMonetaryPolicy.setTokenPriceOracle(', contracts.tokenPriceOracle, ') succeeded')
     await (await cascade.setLPToken(contracts.lpToken)).wait()
     console.log('Cascade.setLPToken(', contracts.lpToken, ') succeeded')
-    await (await cascade.setBASEToken(contracts.baseToken)).wait()
-    console.log('Cascade.setBASEToken(', contracts.baseToken, ') succeeded')
+    await (await cascade.setBASEToken(contracts.sbsToken)).wait()
+    console.log('Cascade.setBASEToken(', contracts.sbsToken, ') succeeded')
 }
 
 main()
