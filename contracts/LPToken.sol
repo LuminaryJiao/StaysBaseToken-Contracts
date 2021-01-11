@@ -9,7 +9,7 @@ contract LPToken is IERC20 {
     string public constant symbol = "LP";
     uint8 public constant decimals = 18;
 
-    event Approval(
+    event Approval(        
         address indexed tokenOwner,
         address indexed spender,
         uint256 tokens
